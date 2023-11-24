@@ -17,3 +17,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::match(['get','post'],'/', function () {
+});
+
+Route::any('/', function () {
+
+});
+
+// DI
+Route::get('/users', function (Request $request) {
+
+});
+
+Route::get('/profiles', function (Request $request) {
+
+});
