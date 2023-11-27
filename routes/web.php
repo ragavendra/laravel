@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\EnsureTokenIsValid;
+use App\Http\Middleware\EnsureUserHasRole;
+
+// use Illuminate\Auth\Middleware\Authenticate;
 
 /*
 |--------------------------------------------------------------------------
@@ -62,3 +67,13 @@ Route::get('/user/{id}', function (string $id) {
 Route::get('/posts/{post}/comments/{comment?}', function (Request $request, string $postId, ?string $commentId = 'default') {
     return 'User ' . $postId . ' ' .$commentId;// ...
 });
+
+Route::withoutMiddleware([EnsureTokenIsValid::class])->group(function () {
+
+    Route::get('/profiles', function (Request $request) {
+        return 'Proflies page';
+    })->middleware('role:editor');
+});
+// })->middleware([Authenticate::class, Authenticate::class]);
+// })->middleware('auth.basic');
+// })->withoutMiddleware([EnsureTokenIsValid::class]);

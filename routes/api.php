@@ -1,5 +1,8 @@
 <?php
 
+// use App\Http\Middleware\Authenticate;
+
+use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -27,9 +30,5 @@ Route::any('/', function () {
 
 // DI
 Route::get('/users', function (Request $request) {
-
-});
-
-Route::get('/profiles', function (Request $request) {
 
 });
