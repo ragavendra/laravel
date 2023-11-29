@@ -5,6 +5,8 @@
 use Illuminate\Auth\Middleware\Authenticate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\StopsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +34,22 @@ Route::any('/', function () {
 Route::get('/users', function (Request $request) {
 
 });
+
+// Route::apiResource('photos', PhotoController::class);
+
+// to controller
+Route::post('/stopsNearMe', function (Request $request) {
+
+    # echo 'Request is ' . $request->input('latitude');
+    return response()->json([
+        'latitude' => $request->input('Latitude'),
+        'longitude'=> $request->input('Longitude')
+    ]);
+
+    // return redirect()->action([StopsController::class,'index'], ['latitude' => 1, 'longitude' => 6]);
+});
+
+Route::apiResources([
+    'photos' => PhotoController::class,
+   // 'posts' => PostController::class,
+]);
