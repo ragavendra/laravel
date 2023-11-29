@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\StopsController;
 // use App\Services\GitHub;
+use App\Models\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,19 +37,30 @@ Route::get('/users', function (Request $request) {
 
 });
 
+Route::get('/arr', function () {
+    return [1, 2, 3];
+});
+
 // Route::apiResource('photos', PhotoController::class);
+Route::get('/user/{user}', function (User $user) {
+    return $user;
+});
+
+Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
 
 // to controller
 Route::post('/stopsNearMe', function (Request $request) {
 
     // echo 'Request is ' . $request->input('latitude');
-    /*
     return response()->json([
         'latitude' => $request->input('Latitude'),
         'longitude'=> $request->input('Longitude')
-    ]); */
+    ])
+    ->cookie('token', 'tokenVal', 3)
+    ->header('One', 'One Val'); 
 
-    return redirect()->action([StopsController::class,'index'], ['latitude' => $request->input('Latitude'), 'longitude' => $request->input('Longitude')]);
+    // return redirect()->action([StopsController::class,'index'], ['latitude' => $request->input('Latitude'), 'longitude' => $request->input('Longitude')]);
+});
 });
 
 Route::apiResources([

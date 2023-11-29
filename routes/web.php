@@ -67,7 +67,8 @@ Route::get('/user/{id}', function (string $id) {
     return 'User ' . $id;
 });*/
 
-Route::get('/user/{id}', [UserController::class,'show'])->middleware('auth');
+Route::get('/user/{id}', [UserController::class,'show']);
+// ->middleware('auth');
 
 Route::get('/posts/{post}/comments/{comment?}', function (Request $request, string $postId, ?string $commentId = 'default') {
     return 'User ' . $postId . ' ' .$commentId;// ...

@@ -1,0 +1,14 @@
+CREATE TABLE `users` (
+  `FirstName` char(33) DEFAULT NULL,
+  `LastName` char(33) DEFAULT NULL,
+  `Name` char(15) DEFAULT NULL,
+  `Active` tinyint(1) DEFAULT NULL,
+  KEY `IFK_name` (`name`)
+);
+
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `users` VALUES
+('First1','Last1','one',1),
+('First2','Last2','two',0),
+('First3','Last3','three',1),
