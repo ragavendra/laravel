@@ -11,8 +11,9 @@ class StopsController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(int $latitude, int $longitude)
+    public function index($latitude, $longitude)
     {
+        echo "Lat " . $latitude . " Long ". $longitude;
         return response()->json([
             'latitude' => $latitude,
             'longitude'=> $longitude

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\StopsController;
+// use App\Services\GitHub;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,16 +41,31 @@ Route::get('/users', function (Request $request) {
 // to controller
 Route::post('/stopsNearMe', function (Request $request) {
 
-    # echo 'Request is ' . $request->input('latitude');
+    // echo 'Request is ' . $request->input('latitude');
+    /*
     return response()->json([
         'latitude' => $request->input('Latitude'),
         'longitude'=> $request->input('Longitude')
-    ]);
+    ]); */
 
-    // return redirect()->action([StopsController::class,'index'], ['latitude' => 1, 'longitude' => 6]);
+    return redirect()->action([StopsController::class,'index'], ['latitude' => $request->input('Latitude'), 'longitude' => $request->input('Longitude')]);
 });
 
 Route::apiResources([
     'photos' => PhotoController::class,
    // 'posts' => PostController::class,
 ]);
+
+    /*
+Route::get('/ghub', function (Request $request) {
+
+return response()->streamDownload(function () {
+    echo GitHub::api('repo')
+                ->contents()
+                ->readme('laravel', 'laravel')['contents'];
+}, 'laravel-readme.md');
+});*/
+
+Route::get('/someFile', function (Request $request) {
+    return response()->file(public_path('robots.txt'));
+});
