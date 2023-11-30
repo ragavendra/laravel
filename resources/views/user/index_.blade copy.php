@@ -1,17 +1,32 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- If using this, run npm run dev to run vite for FE @vite('resources/css/app.css') -->
+</head>
+<body>
+  <!-- h1 class="text-3xl font-bold underline" -->
+  <h1>
+    Hello world!
+  </h1>
 <div>
+    @unless (Auth::check())
+    You are not signed in.
+    @endunless
     <!-- Knowing is not enough; we must apply. Being willing is not enough; we must do. - Leonardo da Vinci -->
-    <h1>Hello, {{ $users[0]->name }}</h1>
+    <h1>Hello, {{ $users[0]->Name }}</h1>
 
     @for ($i = 0; $i < 10; $i++)
     The current value is {{ $i }}
 @endfor
  
 @foreach ($users as $user)
-    <p>This is user {{ $user->name }}</p>
+    <p>This is user {{ $user->Name }}</p>
 @endforeach
  
 @forelse ($users as $user)
-    <li>{{ $user->name }}</li>
+    <li>{{ $user->Name }}</li>
 @empty
     <p>No users</p>
 @endforelse
@@ -68,7 +83,7 @@
         This is the last iteration.
     @endif
  
-    <p>This is user {{ $user->name }}</p>
+    <p>This is user {{ $user->Name }}</p>
 @endforeach
 
 
@@ -124,3 +139,5 @@
 <script>
     var app = <?php echo json_encode($users); ?>;
 </script>
+</body>
+</html>

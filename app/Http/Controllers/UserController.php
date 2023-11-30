@@ -26,7 +26,10 @@ class UserController extends Controller
     }*/
 
     public function index(): View {
-        $users = DB::select('SELECT * FROM users where active = ?', [1]);
+        
+        // $users = DB::select('SELECT * FROM users where active = ?', [1]);
+        // $users = DB::table('users')->get();
+        $users = DB::table('users')->paginate(2);
 
         /*
         if (View::exists('user.index')) {
@@ -42,7 +45,8 @@ class UserController extends Controller
         */
 
         // return view('greeting', ['name' => 'James']);
-        return view('user.index', ['users' => $users]);
+        // return view('user.index', ['users' => $users]);
+        return view('user.index', ['users' => DB::table('users')->paginate(2)]);
     }
 
     public function show(string $id): View {
