@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\StopsController;
+use App\Http\Controllers\UserController;
 // use App\Services\GitHub;
 use App\Models\User;
 
@@ -41,6 +42,8 @@ Route::get('/arr', function () {
     return [1, 2, 3];
 });
 
+// Route::get('/user/{id}', [UserController::class, 'show']);
+
 // Route::apiResource('photos', PhotoController::class);
 Route::get('/user/{user}', function (User $user) {
     return $user;
@@ -48,25 +51,23 @@ Route::get('/user/{user}', function (User $user) {
 
 Route::middleware('cache.headers:public;max_age=2628000;etag')->group(function () {
 
-// to controller
-Route::post('/stopsNearMe', function (Request $request) {
+    // to controller
+    Route::post('/stopsNearMe', function (Request $request) {
 
-    // echo 'Request is ' . $request->input('latitude');
+        // echo 'Request is ' . $request->input('latitude');
+        /*
     return response()->json([
         'latitude' => $request->input('Latitude'),
         'longitude'=> $request->input('Longitude')
     ])
     ->cookie('token', 'tokenVal', 3)
-    ->header('One', 'One Val'); 
+    ->header('One', 'One Val'); */
+        echo "Lat " . $request->input('Latitude') . " Long ". $request->input('Longitude');
 
-    // return redirect()->action([StopsController::class,'index'], ['latitude' => $request->input('Latitude'), 'longitude' => $request->input('Longitude')]);
+        // return redirect()->action([StopsController::class, 'index'], ['latitude' => $request->input('Latitude'), 'longitude' => $request->input('Longitude')]);
+        // return redirect()->action("StopsController::class", [$request->input('Latitude'), $request->input('Longitude')]);
+    });
 });
-});
-
-Route::apiResources([
-    'photos' => PhotoController::class,
-   // 'posts' => PostController::class,
-]);
 
     /*
 Route::get('/ghub', function (Request $request) {
@@ -77,6 +78,15 @@ return response()->streamDownload(function () {
                 ->readme('laravel', 'laravel')['contents'];
 }, 'laravel-readme.md');
 });*/
+
+// excl api access to create and edit
+Route::apiResource('photos', PhotoController::class);
+
+/*
+Route::apiResources([
+    'photos' => PhotoController::class,
+    'posts' => PostController::class,
+]);*/
 
 Route::get('/someFile', function (Request $request) {
     return response()->file(public_path('robots.txt'));

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
 
-    /*
+    /* middleware in constructor
     public function __construct()
     {
         $this->middleware("auth");
@@ -26,7 +26,7 @@ class UserController extends Controller
     }*/
 
     public function index(): View {
-        
+
         // $users = DB::select('SELECT * FROM users where active = ?', [1]);
         // $users = DB::table('users')->get();
         $users = DB::table('users')->paginate(2);

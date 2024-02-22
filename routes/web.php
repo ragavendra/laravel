@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\PostCommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +31,35 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/flights', function () {
+    // Only authenticated users may access this route...
+})->middleware('auth:admin');
+
 require __DIR__.'/auth.php';
 
+Route::get('/user/{id}', [UserController::class, 'show']);
 Route::get('/user', [UserController::class, 'index']);
+
+Route::resource('photos', PhotoController::class)
+
+    // show soft del models
+    // -> withTrashed()
+    // -> withTrashed(['show'])
+
+    // handle partial routes
+    // ->only(['index', 'show'])
+    // ->except(['create', 'store', 'update', 'destroy'])
+
+    // on missing model
+    ->missing(function (Request $request) {
+        return Redirect::route('photos.index');
+    });
+
+Route::resource('posts.comments', PostCommentController::class);
+
+Route::post('/comment/{comment}');
+    /*
+Route::resources([
+    'photos' => PhotoController::class,
+   // 'posts' => PostController::class,
+]);*/

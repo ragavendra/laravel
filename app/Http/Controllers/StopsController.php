@@ -13,7 +13,7 @@ class StopsController extends Controller
      */
     public function index($latitude, $longitude)
     {
-        echo "Lat " . $latitude . " Long ". $longitude;
+        // echo "Lat " . $latitude . " Long ". $longitude;
         return response()->json([
             'latitude' => $latitude,
             'longitude'=> $longitude
